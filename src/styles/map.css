@@ -1,0 +1,11 @@
+.map-container {
+  flex: 1;
+  min-height: 300px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-bg-dark);
+}
+
+.map-container .gm-style {
+  border: none;
+}

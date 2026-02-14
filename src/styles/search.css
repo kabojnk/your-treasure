@@ -1,0 +1,17 @@
+.search-bar-wrapper {
+  padding: 0;
+  background: transparent;
+}
+
+.search-bar-container {
+  width: 100%;
+}
+
+.search-bar-container gmp-place-autocomplete {
+  width: 100%;
+}
+
+/* Style the autocomplete web component container */
+.search-bar-container > * {
+  width: 100%;
+}
