@@ -47,10 +47,18 @@
 .layout-right {
   width: 380px;
   min-width: 380px;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--color-bg-dark);
   border-radius: var(--radius-md);
   background: var(--color-bg-light);
+  overflow: hidden;
+}
+
+.layout-right-content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 @media (max-width: 768px) {
@@ -66,12 +74,18 @@
   }
 
   .layout-left .map-container {
+    flex: none;
     height: 50vh;
+    min-height: 250px;
   }
 
   .layout-right {
     width: 100%;
     min-width: unset;
+    overflow: visible;
+  }
+
+  .layout-right-content {
     overflow-y: visible;
   }
 }

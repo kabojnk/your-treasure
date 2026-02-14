@@ -10,6 +10,7 @@ import { BookmarkList } from './BookmarkList';
 import { BookmarkDetail } from './BookmarkDetail';
 import { TagFilter } from './TagFilter';
 import { AddEditModal } from './AddEditModal';
+import { MusicPlayer } from './MusicPlayer';
 import '../styles/layout.css';
 
 interface LayoutProps {
@@ -150,31 +151,35 @@ export function Layout({ user, onSignOut }: LayoutProps) {
         </div>
 
         <div className="layout-right">
-          <TagFilter
-            allTags={allTags}
-            activeTags={activeTags}
-            onToggle={toggleTag}
-            onClear={clearTags}
-          />
-
-          {loading ? (
-            <div className="bookmark-list-empty">Loading locations...</div>
-          ) : detailViewOpen && selectedBookmarkId ? (
-            <BookmarkDetail
-              bookmark={bookmarks.find((b) => b.id === selectedBookmarkId)!}
-              onClose={handleCloseDetail}
-              onEdit={handleOpenEditModal}
-              onDelete={handleDelete}
-            />
-          ) : (
-            <BookmarkList
-              bookmarks={filteredBookmarks}
+          <div className="layout-right-content">
+            <TagFilter
+              allTags={allTags}
               activeTags={activeTags}
-              onTagClick={toggleTag}
-              onBookmarkClick={handleBookmarkClick}
-              onReorder={handleReorder}
+              onToggle={toggleTag}
+              onClear={clearTags}
             />
-          )}
+
+            {loading ? (
+              <div className="bookmark-list-empty">Loading locations...</div>
+            ) : detailViewOpen && selectedBookmarkId ? (
+              <BookmarkDetail
+                bookmark={bookmarks.find((b) => b.id === selectedBookmarkId)!}
+                onClose={handleCloseDetail}
+                onEdit={handleOpenEditModal}
+                onDelete={handleDelete}
+              />
+            ) : (
+              <BookmarkList
+                bookmarks={filteredBookmarks}
+                activeTags={activeTags}
+                onTagClick={toggleTag}
+                onBookmarkClick={handleBookmarkClick}
+                onReorder={handleReorder}
+              />
+            )}
+          </div>
+
+          <MusicPlayer />
         </div>
       </div>
 

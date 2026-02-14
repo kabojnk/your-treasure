@@ -68,7 +68,7 @@ export function MapView({ bookmarks, selectedBookmarkId, onMarkerClick }: MapVie
           >
             <Pin
               background={bookmark.color || '#000000'}
-              borderColor={bookmark.color || '#000000'}
+              borderColor="#333333"
               glyphColor={bookmark.color || '#000000'}
             />
           </AdvancedMarker>
