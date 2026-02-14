@@ -137,7 +137,13 @@ export function Layout({ user, onSignOut }: LayoutProps) {
   return (
     <div className="layout">
       <header className="app-header">
-        <h1>I'll Be Your Treasure</h1>
+        <div className="app-header-title">
+          <img src="/bear-chickadee.png" alt="" className="app-header-logo" />
+          <div>
+            <h1>I'll Be Your Treasure</h1>
+            <p className="app-header-subtitle">All the places we'll explore together. Let's plan it together, my chickadee. A gift to you, from your big bear</p>
+          </div>
+        </div>
         <button className="app-header-signout" onClick={onSignOut}>
           Sign Out
         </button>

@@ -9,9 +9,28 @@
   box-shadow: var(--shadow-sm);
 }
 
+.app-header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-header-logo {
+  height: 40px;
+  width: auto;
+}
+
 .app-header h1 {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   color: var(--color-link-high);
+  line-height: 1.2;
+}
+
+.app-header-subtitle {
+  font-size: 0.7rem;
+  font-style: italic;
+  color: #7a6269;
+  margin-top: 1px;
 }
 
 .app-header-signout {
