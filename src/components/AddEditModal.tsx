@@ -5,11 +5,17 @@ import '../styles/modal.css';
 interface AddEditModalProps {
   mode: 'add' | 'edit';
   initialData?: Partial<BookmarkFormData>;
+  allTags?: string[];
   onSave: (data: BookmarkFormData) => Promise<void>;
   onCancel: () => void;
 }
 
-export function AddEditModal({ mode, initialData, onSave, onCancel }: AddEditModalProps) {
+const PRESET_COLORS = [
+  '#FBF8CC', '#FDE4CF', '#FFCFD2', '#F1C0E8', '#CFBAF0',
+  '#A3C4F3', '#90DBF4', '#8EECF5', '#98F5E1', '#B9FBC0',
+];
+
+export function AddEditModal({ mode, initialData, allTags = [], onSave, onCancel }: AddEditModalProps) {
   const [name, setName] = useState(initialData?.name ?? '');
   const [description, setDescription] = useState(initialData?.description ?? '');
   const [thumbnailUrl, setThumbnailUrl] = useState(initialData?.thumbnail_url ?? '');
@@ -106,9 +112,9 @@ export function AddEditModal({ mode, initialData, onSave, onCancel }: AddEditMod
             />
           </div>
 
-          {/* Description */}
+          {/* Field Notes */}
           <div className="modal-field">
-            <label>Notes / Description</label>
+            <label>Field Notes</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -142,6 +148,20 @@ export function AddEditModal({ mode, initialData, onSave, onCancel }: AddEditMod
                 Add
               </button>
             </div>
+            {allTags.filter((t) => !tags.includes(t)).length > 0 && (
+              <div className="modal-tag-suggestions">
+                {allTags.filter((t) => !tags.includes(t)).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    className="modal-tag-suggestion"
+                    onClick={() => setTags([...tags, t])}
+                  >
+                    + {t}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Weight + Color row */}
@@ -173,6 +193,18 @@ export function AddEditModal({ mode, initialData, onSave, onCancel }: AddEditMod
                   className="modal-color-swatch"
                   style={{ backgroundColor: /^#[0-9a-fA-F]{6}$/.test(color) ? color : '#ffffff' }}
                 />
+              </div>
+              <div className="modal-color-presets">
+                {PRESET_COLORS.map((c) => (
+                  <button
+                    key={c}
+                    type="button"
+                    className={`modal-color-preset${color.toUpperCase() === c ? ' active' : ''}`}
+                    style={{ backgroundColor: c }}
+                    onClick={() => setColor(c.toLowerCase())}
+                    aria-label={`Color ${c}`}
+                  />
+                ))}
               </div>
             </div>
           </div>

@@ -9,3 +9,45 @@
 .map-container .gm-style {
   border: none;
 }
+
+/* POI Info Window */
+.poi-info-content {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  padding: 4px 0;
+  min-width: 180px;
+  max-width: 260px;
+}
+
+.poi-info-loading {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+  margin: 0;
+  padding: 4px 0;
+}
+
+.poi-info-address {
+  font-size: 0.75rem;
+  color: #555;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.poi-info-add-btn {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: #5e4b56;
+  color: #fffef9;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.poi-info-add-btn:hover {
+  background: #a690a4;
+}

@@ -117,6 +117,34 @@
   border: 1px solid var(--color-bg-dark);
 }
 
+.modal-color-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.modal-color-preset {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-bg-dark);
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.modal-color-preset:hover {
+  border-color: var(--color-link-high);
+  transform: scale(1.1);
+}
+
+.modal-color-preset.active {
+  border-color: var(--color-link-high);
+  box-shadow: 0 0 0 2px var(--color-link);
+}
+
 .modal-tags-container {
   display: flex;
   flex-wrap: wrap;
@@ -168,6 +196,29 @@
   border-radius: var(--radius-sm);
   font-size: 0.75rem;
   font-weight: 700;
+}
+
+.modal-tag-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.modal-tag-suggestion {
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 0.65rem;
+  border: 1px dashed var(--color-accent);
+  color: var(--color-link-high);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.modal-tag-suggestion:hover {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent);
 }
 
 .modal-actions {

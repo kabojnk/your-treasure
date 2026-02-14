@@ -45,6 +45,7 @@ if (!(window as any).__gmpShadowPatched) {
 export interface PlaceData {
   name: string;
   address: string;
+  summary: string | null;
   lat: number;
   lng: number;
   photoUrl: string | null;
@@ -70,7 +71,7 @@ export function SearchBar({ onPlaceSelected }: SearchBarProps) {
 
     try {
       await place.fetchFields({
-        fields: ['displayName', 'formattedAddress', 'location', 'photos'],
+        fields: ['displayName', 'formattedAddress', 'editorialSummary', 'location', 'photos'],
       });
 
       const location = place.location;
@@ -87,6 +88,7 @@ export function SearchBar({ onPlaceSelected }: SearchBarProps) {
       callbackRef.current({
         name: place.displayName ?? '',
         address: place.formattedAddress ?? '',
+        summary: (place as any).editorialSummary ?? null,
         lat: location?.lat() ?? 0,
         lng: location?.lng() ?? 0,
         photoUrl,

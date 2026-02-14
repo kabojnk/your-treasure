@@ -40,12 +40,15 @@ export function Layout({ user, onSignOut }: LayoutProps) {
 
   // Search bar → open Add modal with pre-filled data
   const handlePlaceSelected = useCallback((placeData: PlaceData) => {
+    // Prefer editorial summary for Field Notes; fall back to address
+    const description = placeData.summary || placeData.address;
+
     setModalState({
       open: true,
       mode: 'add',
       initialData: {
         name: placeData.name,
-        description: placeData.address,
+        description,
         latitude: placeData.lat,
         longitude: placeData.lng,
         thumbnail_url: placeData.photoUrl ?? '',
@@ -147,6 +150,7 @@ export function Layout({ user, onSignOut }: LayoutProps) {
             bookmarks={filteredBookmarks}
             selectedBookmarkId={detailViewOpen ? selectedBookmarkId : null}
             onMarkerClick={handleMarkerClick}
+            onPlaceSelected={handlePlaceSelected}
           />
         </div>
 
@@ -187,6 +191,7 @@ export function Layout({ user, onSignOut }: LayoutProps) {
         <AddEditModal
           mode={modalState.mode}
           initialData={modalState.initialData}
+          allTags={allTags}
           onSave={modalState.mode === 'add' ? handleAdd : handleUpdate}
           onCancel={() => setModalState({ open: false })}
         />
