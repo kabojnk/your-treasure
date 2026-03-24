@@ -1,0 +1,260 @@
+.hamburger-wrapper {
+  position: relative;
+}
+
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  position: relative;
+}
+
+.hamburger-line {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-link-high);
+  border-radius: 1px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.hamburger-btn.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+
+.hamburger-btn.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -4px);
+}
+
+.hamburger-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+
+.hamburger-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  max-width: 85vw;
+  background: var(--color-bg-light);
+  border-right: 2px solid var(--color-bg-darker);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  padding-top: var(--header-height);
+}
+
+.hamburger-section {
+  padding: 16px;
+}
+
+.hamburger-section-love {
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--color-link);
+  border-bottom: 1px solid var(--color-bg-dark);
+}
+
+.hamburger-section-guides {
+  flex: 1;
+}
+
+.hamburger-section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-link);
+  margin-bottom: 10px;
+}
+
+.hamburger-guide-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+  text-align: left;
+}
+
+.hamburger-guide-item:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hamburger-guide-item.active {
+  background: var(--color-bg);
+  font-weight: 700;
+}
+
+.hamburger-guide-avatar {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.hamburger-guide-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hamburger-guide-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.hamburger-guide-name {
+  font-size: 0.82rem;
+  color: var(--color-link-high);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hamburger-guide-date {
+  font-size: 0.65rem;
+  color: var(--color-link);
+  font-style: italic;
+}
+
+.hamburger-add-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--color-link);
+  text-align: left;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, color 0.15s;
+}
+
+.hamburger-add-btn:hover {
+  background: var(--color-accent-light);
+  color: var(--color-link-high);
+}
+
+/* Edit Field Guide button — desktop: hidden, mobile: shown */
+.hamburger-section-edit-mobile {
+  border-bottom: 1px solid var(--color-bg-dark);
+  display: none;
+}
+
+.hamburger-edit-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-link-high);
+  text-align: left;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.hamburger-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hamburger-delete-area {
+  margin-top: 6px;
+}
+
+.hamburger-delete-btn {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  color: var(--color-error);
+  text-align: left;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.hamburger-delete-btn:hover {
+  background: rgba(204, 68, 68, 0.1);
+}
+
+.hamburger-delete-confirm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: var(--color-error);
+  padding: 4px 0;
+}
+
+.hamburger-confirm-yes {
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  background: var(--color-error);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+}
+
+.hamburger-confirm-no {
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  border: 1px solid var(--color-bg-dark);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+}
+
+/* Sign out — desktop: hidden, mobile: shown */
+.hamburger-section-signout-mobile {
+  border-top: 1px solid var(--color-bg-dark);
+  display: none;
+}
+
+.hamburger-signout-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 0.82rem;
+  color: var(--color-link);
+  text-align: left;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.hamburger-signout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile: show edit and signout sections */
+@media (max-width: 768px) {
+  .hamburger-section-edit-mobile {
+    display: block;
+  }
+
+  .hamburger-section-signout-mobile {
+    display: block;
+  }
+}

@@ -1,0 +1,82 @@
+.fg-modal-card {
+  max-width: 560px;
+}
+
+.fg-image-name-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.fg-image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  width: 100%;
+}
+
+.fg-image-preview {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid var(--color-bg-dark);
+  transition: border-color 0.2s;
+}
+
+.fg-image-preview:hover {
+  border-color: var(--color-link-high);
+}
+
+.fg-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fg-image-placeholder-text {
+  font-size: 1.5rem;
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+.fg-image-url-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--color-bg-dark);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  font-size: 0.75rem;
+  color: var(--color-text);
+}
+
+.fg-image-url-input:focus {
+  border-color: var(--color-link);
+  outline: none;
+}
+
+/* Markdown editor overrides */
+.fg-notes-field .w-md-editor {
+  border: 1px solid var(--color-bg-dark) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+  font-family: var(--font-body) !important;
+}
+
+.fg-notes-field .w-md-editor-toolbar {
+  border-bottom: 1px solid var(--color-bg-dark) !important;
+  background: var(--color-bg) !important;
+}
+
+.fg-notes-field .w-md-editor-text-pre,
+.fg-notes-field .w-md-editor-text-input,
+.fg-notes-field .w-md-editor-text {
+  font-size: 0.85rem !important;
+  font-family: var(--font-body) !important;
+}

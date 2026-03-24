@@ -29,8 +29,47 @@ export function MapView({ bookmarks, selectedBookmarkId, onMarkerClick, onPlaceS
   const prevZoomRef = useRef<number>(MAP_DEFAULTS.zoom);
   const prevCenterRef = useRef<google.maps.LatLngLiteral>(MAP_DEFAULTS.center);
   const currentPoiRef = useRef<string | null>(null);
+  const initialFitDoneRef = useRef(false);
 
   const [poiInfo, setPoiInfo] = useState<PoiInfo | null>(null);
+
+  // Auto-zoom to fit all pins on first load
+  useEffect(() => {
+    if (!map || initialFitDoneRef.current) return;
+
+    const pinsWithCoords = bookmarks.filter((b) => b.latitude && b.longitude);
+    if (pinsWithCoords.length === 0) return;
+
+    initialFitDoneRef.current = true;
+
+    if (pinsWithCoords.length === 1) {
+      const pin = pinsWithCoords[0];
+      map.panTo({ lat: pin.latitude!, lng: pin.longitude! });
+      map.setZoom(10);
+      return;
+    }
+
+    const bounds = new google.maps.LatLngBounds();
+    pinsWithCoords.forEach((b) => {
+      bounds.extend({ lat: b.latitude!, lng: b.longitude! });
+    });
+
+    map.fitBounds(bounds, { top: 50, right: 50, bottom: 50, left: 50 });
+
+    // Cap the zoom so we don't zoom in too much for clustered pins
+    const listener = map.addListener('idle', () => {
+      const currentZoom = map.getZoom();
+      if (currentZoom && currentZoom > 12) {
+        map.setZoom(12);
+      }
+      google.maps.event.removeListener(listener);
+    });
+  }, [map, bookmarks]);
+
+  // Reset initial fit when bookmarks change significantly (new field guide)
+  useEffect(() => {
+    initialFitDoneRef.current = false;
+  }, [bookmarks.length === 0 ? 'empty' : bookmarks[0]?.field_guide_id]);
 
   // Save current map state before zooming to a pin
   useEffect(() => {

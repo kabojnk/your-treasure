@@ -1,0 +1,137 @@
+.fg-notes-section {
+  border-top: 1px solid var(--color-bg-dark);
+  padding: 14px;
+}
+
+.fg-notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.fg-notes-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-link);
+}
+
+.fg-notes-edit-btn {
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  color: var(--color-link);
+  border: 1px solid var(--color-bg-dark);
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.fg-notes-edit-btn:hover {
+  background: var(--color-bg);
+}
+
+.fg-notes-rendered {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.fg-notes-rendered h1,
+.fg-notes-rendered h2,
+.fg-notes-rendered h3 {
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.fg-notes-rendered h1 { font-size: 1.1rem; }
+.fg-notes-rendered h2 { font-size: 0.95rem; }
+.fg-notes-rendered h3 { font-size: 0.85rem; }
+
+.fg-notes-rendered p {
+  margin-bottom: 8px;
+}
+
+.fg-notes-rendered ul,
+.fg-notes-rendered ol {
+  margin-left: 20px;
+  margin-bottom: 8px;
+}
+
+.fg-notes-rendered a {
+  color: var(--color-link);
+}
+
+.fg-notes-rendered a:hover {
+  color: var(--color-link-high);
+}
+
+.fg-notes-rendered blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 12px;
+  margin: 8px 0;
+  color: var(--color-link);
+  font-style: italic;
+}
+
+.fg-notes-rendered code {
+  background: var(--color-bg);
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 0.78rem;
+}
+
+.fg-notes-editor {
+  margin-bottom: 8px;
+}
+
+.fg-notes-editor .w-md-editor {
+  border: 1px solid var(--color-bg-dark) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+}
+
+.fg-notes-editor .w-md-editor-toolbar {
+  border-bottom: 1px solid var(--color-bg-dark) !important;
+  background: var(--color-bg) !important;
+}
+
+.fg-notes-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.fg-notes-cancel-btn {
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  border: 1px solid var(--color-bg-dark);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: background 0.2s;
+}
+
+.fg-notes-cancel-btn:hover {
+  background: var(--color-bg-dark);
+}
+
+.fg-notes-save-btn {
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  background: var(--color-link-high);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.fg-notes-save-btn:hover:not(:disabled) {
+  background: var(--color-link);
+}
+
+.fg-notes-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

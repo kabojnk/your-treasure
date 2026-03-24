@@ -2,17 +2,24 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import type { Bookmark, BookmarkFormData, BookmarkTag } from '../lib/types';
 
-export function useBookmarks(userId: string) {
+export function useBookmarks(userId: string, fieldGuideId: string | null) {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchBookmarks = useCallback(async () => {
+    if (!fieldGuideId) {
+      setBookmarks([]);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
 
     const { data: bookmarkData, error: bError } = await supabase
       .from('bookmarks')
       .select('*')
       .eq('user_id', userId)
+      .eq('field_guide_id', fieldGuideId)
       .order('weight', { ascending: true })
       .order('created_at', { ascending: true });
 
@@ -52,18 +59,20 @@ export function useBookmarks(userId: string) {
 
     setBookmarks(merged);
     setLoading(false);
-  }, [userId]);
+  }, [userId, fieldGuideId]);
 
   useEffect(() => {
     fetchBookmarks();
   }, [fetchBookmarks]);
 
   const addBookmark = async (data: BookmarkFormData) => {
+    if (!fieldGuideId) throw new Error('No field guide selected');
+
     const { tags, ...bookmarkFields } = data;
 
     const { data: newBookmark, error } = await supabase
       .from('bookmarks')
-      .insert({ ...bookmarkFields, user_id: userId })
+      .insert({ ...bookmarkFields, user_id: userId, field_guide_id: fieldGuideId })
       .select()
       .single();
 

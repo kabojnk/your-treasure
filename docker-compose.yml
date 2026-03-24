@@ -1,4 +1,19 @@
 services:
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    depends_on:
+      - web
+    restart: unless-stopped
+
   web:
     build:
       context: .
@@ -7,6 +22,13 @@ services:
         VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
         VITE_GOOGLE_MAPS_API_KEY: ${VITE_GOOGLE_MAPS_API_KEY}
         VITE_GOOGLE_MAPS_MAP_ID: ${VITE_GOOGLE_MAPS_MAP_ID}
-    ports:
-      - "80:80"
+        VITE_BUNNY_STORAGE_ZONE: ${VITE_BUNNY_STORAGE_ZONE}
+        VITE_BUNNY_STORAGE_API_KEY: ${VITE_BUNNY_STORAGE_API_KEY}
+        VITE_BUNNY_CDN_URL: ${VITE_BUNNY_CDN_URL}
+    expose:
+      - "80"
     restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

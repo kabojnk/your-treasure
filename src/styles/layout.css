@@ -9,10 +9,26 @@
   box-shadow: var(--shadow-sm);
 }
 
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 .app-header-title {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .app-header-logo {
@@ -24,6 +40,7 @@
   font-size: 1.25rem;
   color: var(--color-link-high);
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .app-header-subtitle {
@@ -31,6 +48,24 @@
   font-style: italic;
   color: #7a6269;
   margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-header-edit-guide {
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  background: var(--color-bg-light);
+  color: var(--color-link-high);
+  border: 1px solid var(--color-bg-darker);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.app-header-edit-guide:hover {
+  background: var(--color-white);
 }
 
 .app-header-signout {
@@ -41,6 +76,7 @@
   border: 1px solid var(--color-bg-darker);
   border-radius: var(--radius-sm);
   transition: background 0.2s;
+  white-space: nowrap;
 }
 
 .app-header-signout:hover {
@@ -81,6 +117,23 @@
 }
 
 @media (max-width: 768px) {
+  .app-header-edit-guide {
+    display: none;
+  }
+
+  .app-header-signout {
+    display: none;
+  }
+
+  .app-header h1 {
+    font-size: 1rem;
+  }
+
+  .app-header-subtitle {
+    font-size: 0.6rem;
+    max-width: 200px;
+  }
+
   .layout-body {
     flex-direction: column;
     height: auto;
