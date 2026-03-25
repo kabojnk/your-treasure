@@ -31,6 +31,7 @@ export function MapView({ bookmarks, allBookmarks, selectedBookmarkId, onMarkerC
   const prevCenterRef = useRef<google.maps.LatLngLiteral>(MAP_DEFAULTS.center);
   const currentPoiRef = useRef<string | null>(null);
   const lastFitKeyRef = useRef<string | null>(null);
+  const prevSelectedRef = useRef<string | null>(null);
 
   const [poiInfo, setPoiInfo] = useState<PoiInfo | null>(null);
 
@@ -99,11 +100,12 @@ export function MapView({ bookmarks, allBookmarks, selectedBookmarkId, onMarkerC
         map.panTo({ lat: bookmark.latitude, lng: bookmark.longitude });
         map.setZoom(14);
       }
-    } else {
-      // Restore previous view
+    } else if (prevSelectedRef.current) {
+      // Only restore previous view when deselecting a pin (not on guide switch)
       map.panTo(prevCenterRef.current);
       map.setZoom(prevZoomRef.current);
     }
+    prevSelectedRef.current = selectedBookmarkId;
   }, [selectedBookmarkId, map, bookmarks]);
 
   // Dismiss POI InfoWindow when a bookmark is selected
