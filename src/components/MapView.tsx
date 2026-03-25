@@ -8,6 +8,7 @@ import '../styles/map.css';
 
 interface MapViewProps {
   bookmarks: Bookmark[];
+  allBookmarks: Bookmark[];
   selectedBookmarkId: string | null;
   onMarkerClick: (id: string) => void;
   onPlaceSelected: (placeData: PlaceData) => void;
@@ -23,24 +24,29 @@ type PoiInfo = {
   loading: boolean;
 };
 
-export function MapView({ bookmarks, selectedBookmarkId, onMarkerClick, onPlaceSelected }: MapViewProps) {
+export function MapView({ bookmarks, allBookmarks, selectedBookmarkId, onMarkerClick, onPlaceSelected }: MapViewProps) {
   const map = useMap();
   const places = useMapsLibrary('places');
   const prevZoomRef = useRef<number>(MAP_DEFAULTS.zoom);
   const prevCenterRef = useRef<google.maps.LatLngLiteral>(MAP_DEFAULTS.center);
   const currentPoiRef = useRef<string | null>(null);
-  const initialFitDoneRef = useRef(false);
+  const lastFitKeyRef = useRef<string | null>(null);
 
   const [poiInfo, setPoiInfo] = useState<PoiInfo | null>(null);
 
-  // Auto-zoom to fit all pins on first load
+  // Auto-zoom to fit all pins on load and when switching field guides
   useEffect(() => {
-    if (!map || initialFitDoneRef.current) return;
+    if (!map) return;
 
-    const pinsWithCoords = bookmarks.filter((b) => b.latitude && b.longitude);
+    const pinsWithCoords = allBookmarks.filter((b) => b.latitude && b.longitude);
     if (pinsWithCoords.length === 0) return;
 
-    initialFitDoneRef.current = true;
+    // Build a key from guide ID + pin coordinates to detect real changes
+    const guideId = allBookmarks[0]?.field_guide_id ?? 'none';
+    const fitKey = `${guideId}:${pinsWithCoords.length}`;
+
+    if (lastFitKeyRef.current === fitKey) return;
+    lastFitKeyRef.current = fitKey;
 
     if (pinsWithCoords.length === 1) {
       const pin = pinsWithCoords[0];
@@ -64,12 +70,7 @@ export function MapView({ bookmarks, selectedBookmarkId, onMarkerClick, onPlaceS
       }
       google.maps.event.removeListener(listener);
     });
-  }, [map, bookmarks]);
-
-  // Reset initial fit when bookmarks change significantly (new field guide)
-  useEffect(() => {
-    initialFitDoneRef.current = false;
-  }, [bookmarks.length === 0 ? 'empty' : bookmarks[0]?.field_guide_id]);
+  }, [map, allBookmarks]);
 
   // Save current map state before zooming to a pin
   useEffect(() => {

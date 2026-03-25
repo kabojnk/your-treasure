@@ -57,6 +57,14 @@ export function Layout({ user, onSignOut }: LayoutProps) {
 
   const [selectedBookmarkId, setSelectedBookmarkId] = useState<string | null>(null);
   const [detailViewOpen, setDetailViewOpen] = useState(false);
+
+  // Clear selection when switching field guides
+  const handleSelectFieldGuide = useCallback((guideId: string) => {
+    setSelectedBookmarkId(null);
+    setDetailViewOpen(false);
+    clearTags();
+    setActiveFieldGuideId(guideId);
+  }, [setActiveFieldGuideId, clearTags]);
   const [bookmarkModalState, setBookmarkModalState] = useState<BookmarkModalState>({ open: false });
   const [guideModalState, setGuideModalState] = useState<FieldGuideModalState>({ open: false });
 
@@ -219,7 +227,7 @@ export function Layout({ user, onSignOut }: LayoutProps) {
           <HamburgerMenu
             fieldGuides={fieldGuides}
             activeFieldGuideId={activeFieldGuideId}
-            onSelectFieldGuide={setActiveFieldGuideId}
+            onSelectFieldGuide={handleSelectFieldGuide}
             onAddFieldGuide={handleAddFieldGuide}
             onEditFieldGuide={handleEditFieldGuide}
             onDeleteFieldGuide={handleDeleteFieldGuide}
@@ -253,6 +261,7 @@ export function Layout({ user, onSignOut }: LayoutProps) {
           <SearchBar onPlaceSelected={handlePlaceSelected} />
           <MapView
             bookmarks={filteredBookmarks}
+            allBookmarks={bookmarks}
             selectedBookmarkId={detailViewOpen ? selectedBookmarkId : null}
             onMarkerClick={handleMarkerClick}
             onPlaceSelected={handlePlaceSelected}
@@ -270,7 +279,7 @@ export function Layout({ user, onSignOut }: LayoutProps) {
 
             {loading ? (
               <div className="bookmark-list-empty">Loading locations...</div>
-            ) : detailViewOpen && selectedBookmarkId ? (
+            ) : detailViewOpen && selectedBookmarkId && bookmarks.find((b) => b.id === selectedBookmarkId) ? (
               <BookmarkDetail
                 bookmark={bookmarks.find((b) => b.id === selectedBookmarkId)!}
                 onClose={handleCloseDetail}
