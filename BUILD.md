@@ -89,7 +89,8 @@ This enables image uploads for field guide avatars. If you skip this, users can 
 ### CORS configuration
 
 1. In your pull zone settings, go to **Headers**.
-2. Add an **Access-Control-Allow-Origin** header with the value `*` (or your specific domain).
+2. Enable the **Add CORS headers** toggle (green checkmark).
+3. Make sure the extension list includes image formats: `jpg, jpeg, png, gif, webp, svg`.
 
 ---
 
